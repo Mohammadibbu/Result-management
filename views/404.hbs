@@ -1,0 +1,41 @@
+   <style> body {
+      background-color: #f8f9fa; /* Light gray background */
+    }
+    .error-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 40px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+    }
+    .error-title {
+      font-size: 36px;
+      font-weight: bold;
+      color: #dc3545; /* Bootstrap's danger color */
+    }
+    .error-description {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #6c757d; /* Bootstrap's secondary color */
+    }
+    .error-image {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="error-container">
+    <h1 class="error-title">404</h1>
+    <p class="error-description">Oops! Page not found.</p>
+    {{!-- <div class="error-image">
+      <img src="https://media.giphy.com/media/14uQ3cOFteDaU/giphy.gif" alt="404 GIF" class="img-fluid">
+    </div> --}}
+    <p class="error-description mt-3">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+    <a href="/" class="btn btn-primary mt-3">Go to Homepage</a>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="text-center">
+        <img
+          src="https://egovernance.unom.ac.in/results/unom.png"
+          width="70"
+          height="65"
+          class="mt-2"
+        />
+        <h1
+          class="text mt-3 mb-0"
+          style="color:brown;font-weight:bolder"
+        >University of Madras</h1>
+      </div>
+      <div class="text-center text-white mb-4">
+        <p class="mb-0" style="color: blue;font-weight:bolder;">University
+          Students Examination Results.<br />Published on 10-09-2024</p>
+      </div>
+      <div class="bg-white p-4 rounded shadow">
+        <form name="master" action="/result/PGresultPage">
+          <div class="form-group row">
+            <label for="regno" class="col-sm-4 col-form-label"><b>Register
+                Number</b></label>
+            <div class="col-sm-8">
+              <input
+                type="text"
+                name="regno"
+                class="form-control"
+                id="regno"
+                placeholder="Enter Register Number"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="pwd" class="col-sm-4 col-form-label"><b>Date of Birth</b></label>
+            <div class="col-sm-8">
+              <input
+                type="text"
+                name="pwd"
+                class="form-control"
+                id="pwd"
+                placeholder="DD/MM/YYYY"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12 text-center">
+              <button type="submit" class="btn btn-primary mr-2"><b>Get Result</b></button>
+              <button type="reset" class="btn btn-secondary"><b
+                >Clear</b></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

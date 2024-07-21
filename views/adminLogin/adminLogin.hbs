@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center">Admin Login</h2>
+          <form action="/auth/adminLogin" method="post">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                value="PHY123"
+                name="username"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                value="NSIT"
+                name="password"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-block"
+              style="background-color: rgb(36, 202, 202);"
+            >Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{#if msg}}
+  <script>
+    alert('{{msg}}');
+  </script>
+{{/if}}
