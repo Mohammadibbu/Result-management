@@ -11,7 +11,7 @@ const conn = mysql.createPool({
 });
 
 exports.adminLoginAuth = (req, res) => {
-  //   console.log(req.body);
+  // console.log(req.body);
   try {
     const { username, password } = req.body;
     if (!username || !password) {
