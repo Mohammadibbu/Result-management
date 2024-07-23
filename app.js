@@ -13,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //mysql
-const conn = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB_host,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
+// const conn = mysql.createPool({
+//   connectionLimit: 10,
+//   host: process.env.DB_host,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   database: process.env.DB_NAME,
+// });
 //static
 app.use(express.static("public"));
 
