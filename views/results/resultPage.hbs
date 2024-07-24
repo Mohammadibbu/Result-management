@@ -1,11 +1,10 @@
 <style>
-  @media print { body { font-size: 12px; background-color: rgb(255, 255, 255);}
+  @media print { body { font-size: 12px; background-color: rgb(255, 255, 255); }
   .btn { display: none; } } .print-icon { display: inline-block; font-size:
-  20px; margin-right: 5px; } .green{ color: green; } .red{ color: red; }
+  20px; margin-right: 5px; } .green { color: green; } .red { color: red; }
 </style>
 
 <div class="container mt-4 bg-white p-4 rounded shadow">
-
   <div class="text-center">
     <img
       src="https://egovernance.unom.ac.in/results/unom.png"
@@ -13,12 +12,12 @@
       height="65"
       class="mt-2"
     />
-    <h1 class="text mt-3 mb-0" style="color:brown;font-weight:bolder">University
-      of Madras</h1>
-    <h3
-      class="text mt-3 mb-0"
-      style="color:rgb(3, 26, 238);font-weight:bolder"
-    >PG Results</h3>
+    <h1 class="text mt-3 mb-0" style="color:brown;font-weight:bolder">
+      University of Madras
+    </h1>
+    <h3 class="text mt-3 mb-0" style="color:rgb(3, 26, 238);font-weight:bolder">
+      PG Results
+    </h3>
   </div>
 
   <div class="row" style="margin-top:20px">
@@ -26,9 +25,12 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <td class="font-weight-bold">NAME: <span>{{studentName}}</span></td>
-            <td class="font-weight-bold">REGNO:
-              <span>{{data.0.register_number}}</span></td>
+            <td class="font-weight-bold">NAME:
+              <span>{{studentName}}</span></td>
+            <td class="font-weight-bold">
+              REGNO:
+              <span>{{data.0.register_number}}</span>
+            </td>
           </tr>
           <tr>
             <td class="font-weight-bold">DOB: <span>{{DOB}}</span></td>
@@ -52,7 +54,6 @@
           <th scope="col">END SEMESTER</th>
           <th scope="col">TOTAL</th>
           <th scope="col">RESULT</th>
-
         </tr>
       </thead>
       <tbody id="tableBody">
@@ -66,8 +67,10 @@
             <td>{{this.ST2}}</td>
             <td>{{this.EndSemester}}</td>
             <td>{{this.Total}}</td>
-            <td onclick="check('{{this.Result}}')">{{this.Result}}</td>
-
+            <td
+              class="result"
+              data-result="{{this.Result}}"
+            >{{this.Result}}</td>
           </tr>
         {{/each}}
       </tbody>
@@ -84,12 +87,13 @@
     >
       Get Another
     </button>
-
   </div>
 </div>
 
 <script>
-
-  function check(data){ if(data==="PASS"){ this.style.color="green" }else{
-  this.style.color="red" } }
+  // Function to check the result and set the appropriate color function
+  function checkResult() {
+  document.querySelectorAll('.result').forEach((element) => { if
+  (element.dataset.result === "PASS") { element.classList.add('green'); } else {
+  element.classList.add('red'); } }); } window.onload = checkResult;
 </script>
