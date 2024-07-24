@@ -23,8 +23,9 @@ exports.adminLoginAuth = (req, res) => {
       "select * from adminDetails where username=?",
       [username],
       (error, result) => {
-        console.log(result);
-        if (result <= 0) {
+        // console.log(result);
+        // console.log(`DB conn error :${error}`);
+        if (result <= 0 || result === undefined) {
           return res.status(401).render("./adminLogin/adminLogin", {
             msg: "Invalid Credentials",
           });
@@ -52,7 +53,7 @@ exports.adminLoginAuth = (req, res) => {
       }
     );
   } catch (err) {
-    console.log(err);
+    console.log(`Line 55 adminController.js:${err}`);
   }
 };
 
@@ -81,7 +82,7 @@ exports.isLoggedIn = async (req, res, next) => {
       );
     }
   } catch (e) {
-    console.log(e);
+    console.log(`line 84${e}`);
     return next();
   }
 };
