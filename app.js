@@ -89,6 +89,7 @@ app.post("/get-results", (req, res) => {
       res.render(path.join(__dirname, "./views/results/resultPage"), {
         studentName: nameResult[0].student_name,
         DOB: formatDate(nameResult[0].Dob),
+        SEMESTER: results[0].SEMESTER,
         data: results,
       });
       console.log("Results:", results);

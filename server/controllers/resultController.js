@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const path = require("path");
 
 //mysql
 const conn = mysql.createPool({
@@ -18,6 +19,58 @@ exports.result = (req, res) => {
   res.render("./results/result", { BodyBGColor: "rgb(67, 216, 204);" });
 };
 
+exports.addResult = (req, res) => {
+  res.render("./results/addStudResult/addstudResult", {
+    BodyBGColor: "rgb(67, 216, 204);",
+  });
+};
+exports.addResultTODB = (req, res) => {
+  conn.getConnection((err, connection) => {
+    if (err) {
+      console.error("Connection error:", err);
+      res.status(500).send("Database connection failed");
+      return;
+    }
+
+    // Destructuring and defaulting to zero for numeric fields if not provided
+    const {
+      regNo,
+      semester,
+      subject,
+      st1 = 0,
+      st2 = 0,
+      endSem = 0,
+      total = 0,
+      result,
+    } = req.body;
+
+    // Ensure all numeric values are actually numbers
+    const st1Num = parseFloat(st1) || 0;
+    const st2Num = parseFloat(st2) || 0;
+    const endSemNum = parseFloat(endSem) || 0;
+    const totalNum = parseFloat(total) || 0;
+
+    const query =
+      "INSERT INTO Results (SEMESTER, register_number, subjectCode, ST1, ST2, EndSemester, Total, Result) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    connection.query(
+      query,
+      [semester, regNo, subject, st1Num, st2Num, endSemNum, totalNum, result],
+      (err, result) => {
+        connection.release();
+
+        if (err) {
+          console.error("Query error:", err);
+          res.status(500).send(err.code);
+        } else {
+          res.send("Result Details Added Successfully.");
+          res.redirect("/add-result");
+        }
+      }
+    );
+  });
+};
+
 exports.resultPage = (req, res) => {
   res.render("./results/resultPage", { BodyBGColor: "rgb(67, 216, 204);" });
 };
@@ -31,7 +84,7 @@ exports.view = (req, res) => {
   if (req.user) {
     conn.getConnection((err, connection) => {
       if (err) throw err;
-      connection.query("select * from results ", (err, rows) => {
+      connection.query("select * from Students ", (err, rows) => {
         connection.release();
         if (!err) {
           res.render("manageStudents", {
@@ -62,16 +115,16 @@ exports.addstudent = (req, res) => {
 exports.save = (req, res) => {
   conn.getConnection((err, connection) => {
     if (err) throw err;
-    const { regno, name, dept } = req.body;
+    const { regno, Dob, name, dept } = req.body;
     connection.query(
-      "insert into results (REGNO,NAME,DEPT) values(?,?,? )",
-      [regno, name, dept],
+      "insert into Students (register_number,Dob,student_name,class) values(?,?,?,?)",
+      [regno, Dob, name, dept],
       (err, rows) => {
         connection.release();
         if (!err) {
           res.render("addstudent", {
             style: "adduser",
-            msg: "User Details Added Successfuly..",
+            msg: "Student Details Added Successfuly..",
             BodyBGColor: "rgb(67, 216, 204);",
           });
         } else {
@@ -91,7 +144,7 @@ exports.editstudent = (req, res) => {
     let id = req.params.id;
 
     connection.query(
-      "select * from results where REGNO=? ",
+      "select * from Students where register_number=? ",
       [id],
       (err, rows) => {
         connection.release();
@@ -118,7 +171,7 @@ exports.update = (req, res) => {
     let { regno, name, dept } = req.body;
 
     connection.query(
-      "update results set NAME=?,DEPT=? where REGNO=? ",
+      "update Students set student_name=?,class=? where register_number=? ",
       [name, dept, id],
       (err, rows) => {
         connection.release();
@@ -129,7 +182,7 @@ exports.update = (req, res) => {
             let id = req.params.id;
 
             connection.query(
-              "select * from results where REGNO=? ",
+              "select * from Students where register_number=? ",
               [id],
               (err, rows) => {
                 connection.release();
@@ -158,13 +211,17 @@ exports.deletestudent = (req, res) => {
   conn.getConnection((err, connection) => {
     if (err) throw err;
     const id = req.params.id;
-    connection.query("delete from results where REGNO=?", [id], (err, rows) => {
-      connection.release();
-      if (!err) {
-        res.redirect("/admin/manage");
-      } else {
-        console.log("Error:" + err);
+    connection.query(
+      "delete from Students where register_number=?",
+      [id],
+      (err, rows) => {
+        connection.release();
+        if (!err) {
+          res.redirect("/admin/manage");
+        } else {
+          console.log("Error:" + err);
+        }
       }
-    });
+    );
   });
 };

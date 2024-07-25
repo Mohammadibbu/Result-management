@@ -27,4 +27,9 @@ router.get("/result/PGresultPage", resultController.resultPage);
 
 //auth admin
 router.post("/auth/adminLogin", adminController.adminLoginAuth);
+
+// Route to display the add result form
+router.get("/add-result", resultController.addResult);
+router.post("/add-result", resultController.addResultTODB);
+
 module.exports = router;
