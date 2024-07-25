@@ -146,11 +146,11 @@ exports.editstudent = (req, res) => {
     connection.query(
       "select * from Students where register_number=? ",
       [id],
-      (err, rows) => {
+      (err, result) => {
         connection.release();
         if (!err) {
           res.render("editstudent", {
-            data: rows,
+            data: result,
             style: "edituser",
             BodyBGColor: "rgb(67, 216, 204);",
           });
@@ -169,7 +169,7 @@ exports.update = (req, res) => {
     // get id from URL
     let id = req.params.id;
     let { regno, name, dept } = req.body;
-
+    console.log(name);
     connection.query(
       "update Students set student_name=?,class=? where register_number=? ",
       [name, dept, id],
