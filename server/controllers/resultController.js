@@ -1,3 +1,4 @@
+const { log } = require("console");
 const mysql = require("mysql");
 const path = require("path");
 
@@ -88,7 +89,6 @@ exports.view = (req, res) => {
         connection.release();
         if (!err) {
           res.render("manageStudents", {
-            style: "managestud",
             data: rows,
             admin: req.user,
             BodyBGColor: "rgb(67, 216, 204);",
@@ -103,108 +103,62 @@ exports.view = (req, res) => {
   }
 };
 
-//adduser
-
-exports.addstudent = (req, res) => {
-  res.render("addstudent", {
-    style: "adduser",
-    BodyBGColor: "rgb(67, 216, 204);",
-  });
-};
-//save
+//save ADD STUDENTS
 exports.save = (req, res) => {
-  conn.getConnection((err, connection) => {
-    if (err) throw err;
-    const { regno, Dob, name, dept } = req.body;
-    connection.query(
-      "insert into Students (register_number,Dob,student_name,class) values(?,?,?,?)",
-      [regno, Dob, name, dept],
-      (err, rows) => {
-        connection.release();
-        if (!err) {
-          res.render("addstudent", {
-            style: "adduser",
-            msg: "Student Details Added Successfuly..",
-            BodyBGColor: "rgb(67, 216, 204);",
-          });
-        } else {
-          console.log(err.code);
-          res.send(err.code);
-        }
+  const {
+    register_number,
+    addDob: Dob,
+    student_name,
+    class: department,
+  } = req.body;
+
+  if (!register_number || !student_name || !department) {
+    return res.render("manageStudents", {
+      error_msg: "Please fill in all required fields.",
+    });
+  }
+
+  const query =
+    "INSERT INTO Students (register_number,Dob, student_name, class) VALUES (?, ?,?,?)";
+  conn.query(
+    query,
+    [register_number, Dob, student_name, department],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).render("manageStudents", {
+          error_msg: "Server error. Please try again later.",
+        });
       }
-    );
-  });
+      res.redirect("/admin/manage?success=Student+added+successfully!");
+      // Redirect to the manage students page
+    }
+  );
 };
 
 //edit user
-exports.editstudent = (req, res) => {
-  conn.getConnection((err, connection) => {
-    if (err) throw err;
-    // get id from URL
-    let id = req.params.id;
-
-    connection.query(
-      "select * from Students where register_number=? ",
-      [id],
-      (err, result) => {
-        connection.release();
-        if (!err) {
-          res.render("editstudent", {
-            data: result,
-            style: "edituser",
-            BodyBGColor: "rgb(67, 216, 204);",
-          });
-        } else {
-          console.log("Error in listing variable" + err);
-        }
-      }
-    );
-  });
-};
-
 // update
 exports.update = (req, res) => {
-  conn.getConnection((err, connection) => {
-    if (err) throw err;
-    // get id from URL
-    let id = req.params.id;
-    let { regno, name, dept } = req.body;
-    console.log(name);
-    connection.query(
-      "update Students set student_name=?,class=? where register_number=? ",
-      [name, dept, id],
-      (err, rows) => {
-        connection.release();
-        if (!err) {
-          conn.getConnection((err, connection) => {
-            if (err) throw err;
-            // get id from URL
-            let id = req.params.id;
+  console.log(req.body);
+  const { register_number, student_name, class: department } = req.body;
 
-            connection.query(
-              "select * from Students where register_number=? ",
-              [id],
-              (err, rows) => {
-                connection.release();
-                if (!err) {
-                  res.render("editstudent", {
-                    data: rows,
-                    msg: "Updated successfully..",
-                    style: "edituser",
-                    BodyBGColor: "rgb(67, 216, 204);",
-                  });
-                } else {
-                  console.log("Error in listing variable" + err);
-                }
-              }
-            );
-          });
-        } else {
-          console.log("Error in listing variable" + err);
-        }
+  if (!register_number || !student_name || !department) {
+    return res.status(400).send("Please fill in all required fields.");
+  }
+
+  const query =
+    "UPDATE Students SET student_name = ?, class = ? WHERE register_number = ?";
+  conn.query(
+    query,
+    [student_name, department, register_number],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Server error. Please try again later.");
       }
-    );
-  });
+      res.redirect("/admin/manage"); // Redirect to the manage students page
+    }
+  );
 };
 // //delete user
 exports.deletestudent = (req, res) => {
@@ -223,5 +177,53 @@ exports.deletestudent = (req, res) => {
         }
       }
     );
+  });
+};
+
+// Route to handle form submission and query results
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+exports.getresult = (req, res) => {
+  const registerNumber = req.body.regno;
+  const dob = req.body.dob;
+  console.log(registerNumber);
+  // SQL query to get the results for the given register number
+  const sql = `SELECT * FROM Results WHERE register_number = ?`;
+  // SQL query to get the student's name
+  const SQL_for_GetName = `SELECT student_name,Dob FROM Students WHERE register_number = ?`;
+
+  conn.query(sql, [registerNumber], (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).send("Error fetching results");
+    }
+
+    // Check if results are found
+    if (results.length === 0) {
+      return res.status(404).send("No results found for the given details");
+    }
+
+    // Fetch student name after results are found
+    conn.query(SQL_for_GetName, [registerNumber], (err, nameResult) => {
+      if (err) {
+        console.error("Error executing query:", err);
+        return res.status(500).send("Error fetching student name");
+      }
+
+      // Render a result page with the queried results and student name
+      res.render(path.join(__dirname, "../../views/results/resultPage.hbs"), {
+        studentName: nameResult[0].student_name,
+        DOB: formatDate(nameResult[0].Dob),
+        SEMESTER: results[0].SEMESTER,
+        data: results,
+      });
+      console.log("Results:", results);
+    });
   });
 };

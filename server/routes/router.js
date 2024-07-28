@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const resultController = require("../controllers/resultController");
+const studresultmanageController = require("../controllers/studentResultmanage");
 const adminController = require("../controllers/adminController");
 
 //index
@@ -12,14 +13,18 @@ router.get("/admin", resultController.admin);
 router.get("/admin/manage", adminController.isLoggedIn, resultController.view);
 
 //add new records
-router.get("/admin/addstudent", resultController.addstudent);
+
 router.post("/admin/addstudent", resultController.save);
 
 // edit User
-router.get("/admin/editstudent/:id", resultController.editstudent);
-router.post("/admin/editstudent/:id", resultController.update);
+
+router.post("/admin/editstudent", resultController.update);
 // delete user
-router.get("/admin/deletestudent/:id", resultController.deletestudent);
+router.get(
+  "/admin/deletestudent/:id",
+  adminController.isLoggedIn,
+  resultController.deletestudent
+);
 
 //result page
 router.get("/result/PGresult", resultController.result);
@@ -29,7 +34,29 @@ router.get("/result/PGresultPage", resultController.resultPage);
 router.post("/auth/adminLogin", adminController.adminLoginAuth);
 
 // Route to display the add result form
-router.get("/add-result", resultController.addResult);
+router.get(
+  "/admin/add-result",
+  adminController.isLoggedIn,
+  resultController.addResult
+);
 router.post("/add-result", resultController.addResultTODB);
+
+//get results
+router.post("/result/get-results", resultController.getresult);
+
+//student result manage
+
+router.get(
+  "/admin/manageresultview/:id",
+  adminController.isLoggedIn,
+  studresultmanageController.manageresultview
+);
+
+//update student result
+
+router.post(
+  "/admin/edit-result",
+  studresultmanageController.updateStudentResult
+);
 
 module.exports = router;

@@ -94,17 +94,14 @@
         </div>
         <div class="form-group">
           <label for="result">Result:</label>
-          <select
+          <input
+            type="text"
             id="result"
             name="result"
             class="form-control"
-            required
             readonly
-            disabled
-          >
-            <option value="PASS">PASS</option>
-            <option value="FAIL">FAIL</option>
-          </select>
+            required
+          />
         </div>
         <button type="submit" class="btn btn-dark">Add Result</button>
       </form>
@@ -119,5 +116,5 @@
   parseFloat(document.getElementById('endSem').value) || 0; const total = st1 +
   st2 + endSem; document.getElementById('total').value = total; const
   resultField = document.getElementById('result'); if (total > 50) {
-  resultField.value = 'PASS'; } else { resultField.value = 'FAIL'; } }
+  resultField.value = 'PASS'; } else { resultField.value = '--RA--'; } }
 </script>

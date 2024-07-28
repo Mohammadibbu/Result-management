@@ -62,6 +62,7 @@ exports.adminLoginAuth = (req, res) => {
 ///is logged in
 exports.isLoggedIn = async (req, res, next) => {
   //   req.name = "checkLogin";
+
   try {
     if (req.cookies.PHY123) {
       const decode = await promisify(JWT.verify)(
@@ -74,14 +75,19 @@ exports.isLoggedIn = async (req, res, next) => {
         [decode.id],
         (error, result) => {
           if (!result) {
-            return next();
+            console.log(result);
 
-            // console.log(result);
+            return next();
           }
           req.user = result[0];
+
           return next();
         }
       );
+    } else {
+      console.log("none");
+      res.status(500).redirect("/admin");
+      return next();
     }
   } catch (e) {
     console.log(`line 84${e}`);
