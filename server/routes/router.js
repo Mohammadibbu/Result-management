@@ -34,11 +34,11 @@ router.get("/result/PGresultPage", resultController.resultPage);
 router.post("/auth/adminLogin", adminController.adminLoginAuth);
 
 // Route to display the add result form
-router.get(
-  "/admin/add-result",
-  adminController.isLoggedIn,
-  resultController.addResult
-);
+// router.get(
+//   "/admin/add-result",
+//   adminController.isLoggedIn,
+//   resultController.addResult
+// );
 router.post("/add-result", resultController.addResultTODB);
 
 //get results

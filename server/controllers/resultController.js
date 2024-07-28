@@ -20,11 +20,11 @@ exports.result = (req, res) => {
   res.render("./results/result", { BodyBGColor: "rgb(67, 216, 204);" });
 };
 
-exports.addResult = (req, res) => {
-  res.render("./results/addStudResult/addstudResult", {
-    BodyBGColor: "rgb(67, 216, 204);",
-  });
-};
+// exports.addResult = (req, res) => {
+//   res.render("./results/addStudResult/addstudResult", {
+//     BodyBGColor: "rgb(67, 216, 204);",
+//   });
+// };
 exports.addResultTODB = (req, res) => {
   conn.getConnection((err, connection) => {
     if (err) {
@@ -62,10 +62,11 @@ exports.addResultTODB = (req, res) => {
 
         if (err) {
           console.error("Query error:", err);
-          res.status(500).send(err.code);
+          res.status(500).redirect(`/admin/manageresultview/${regNo}`);
         } else {
-          res.send("Result Details Added Successfully.");
-          res.redirect("/add-result");
+          // res.send("Result Details Added Successfully.");
+
+          res.status(200).redirect(`/admin/manageresultview/${regNo}`);
         }
       }
     );

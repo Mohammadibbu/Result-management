@@ -20,7 +20,13 @@
           <h2 class="alert alert-info">Manage Students Result</h2>
         </div>
         <div class="col-md-6 text-right">
-          <a href="/add-result" class="btn btn-success mr-2">Add Student Result</a>
+          <button
+            type="button"
+            class="btn btn-success mr-2"
+            data-toggle="modal"
+            data-target="#addResultModal"
+            id="addResultBtn"
+          >Add Student Result</button>
           <button
             type="button"
             class="btn btn-danger"
@@ -107,6 +113,149 @@
             {{/each}}
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addResultModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addResultModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="addResultModalLabel">Add Student Result</h5>
+            <button
+              type="button"
+              class="close text-white"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addResultForm" action="/add-result" method="POST">
+              <div class="form-group">
+                <label for="name">Student Name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value="{{studentName}}"
+                  class="form-control"
+                  required
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="regNo">Register Number:</label>
+                <input
+                  type="text"
+                  id="regNo"
+                  name="regNo"
+                  value="{{data.0.register_number}}"
+                  class="form-control"
+                  required
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="semester">Semester:</label>
+                <select
+                  id="semester"
+                  name="semester"
+                  class="form-control"
+                  required
+                >
+                  <option value="" disabled selected>Select Semester</option>
+                  <option value="1">1st Semester</option>
+                  <option value="2">2nd Semester</option>
+                  <option value="3">3rd Semester</option>
+                  <option value="4">4th Semester</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="st1">ST-1 Marks:</label>
+                <input
+                  type="number"
+                  id="st1"
+                  name="st1"
+                  class="form-control"
+                  required
+                  oninput="calculateTotalAndResult()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="st2">ST-2 Marks:</label>
+                <input
+                  type="number"
+                  id="st2"
+                  name="st2"
+                  class="form-control"
+                  required
+                  oninput="calculateTotalAndResult()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="endSem">End Semester Marks:</label>
+                <input
+                  type="number"
+                  id="endSem"
+                  name="endSem"
+                  class="form-control"
+                  required
+                  oninput="calculateTotalAndResult()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="total">Total Marks:</label>
+                <input
+                  type="number"
+                  id="total"
+                  name="total"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="result">Result:</label>
+                <input
+                  type="text"
+                  id="result"
+                  name="result"
+                  class="form-control"
+                  readonly
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" id="saveAddResult" class="btn btn-success">
+              Save
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -285,5 +434,27 @@
       console.log('Delete student with regno:', deleteRegNo);
       deleteModal.hide(); }); deleteModal.show(); }); }); });
     </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => { const addResultModal
+      = document.getElementById('addResultModal'); const addResultForm =
+      document.getElementById('addResultForm'); const saveAddResultButton =
+      document.getElementById('saveAddResult'); function
+      calculateTotalAndResult() { const st1 =
+      parseFloat(document.getElementById('st1').value) || 0; const st2 =
+      parseFloat(document.getElementById('st2').value) || 0; const endSem =
+      parseFloat(document.getElementById('endSem').value) || 0; const total =
+      st1 + st2 + endSem; document.getElementById('total').value = total; const
+      resultField = document.getElementById('result'); resultField.value = total
+      > 50 ? 'PASS' : '--RA--'; }
+      document.getElementById('addResultBtn').addEventListener('click', () => {
+      new bootstrap.Modal(addResultModal).show(); });
+      document.getElementById('st1').addEventListener('input',calculateTotalAndResult);
+      document.getElementById('st2').addEventListener('input',calculateTotalAndResult);
+      document.getElementById('endSem').addEventListener('input',calculateTotalAndResult);
+      saveAddResultButton.addEventListener('click', ()=> { if
+      (addResultForm.checkValidity()) { addResultForm.submit(); } else {
+      addResultForm.reportValidity(); } }); });
+    </script>
+
   </body>
 </html>
