@@ -1,15 +1,97 @@
-<div class="container-fluid" style="margin-top: 200px;">
+<!-- Cover Image Section -->
+<header class="cover-image">
+  <div class="overlay">
+    <div class="container text-center text-white py-5 mt-5">
+      <h1>Welcome to University PG Result Management</h1>
+      <p>Your gateway to managing and publishing postgraduate results.</p>
 
-  <div class="text-center">
-
-    <button
-      class="btn btn-primary mr-2"
-      onclick="location.replace('/admin')"
-    >Admin Login</button>
-    <button
-      class="btn btn-secondary"
-      onclick="location.replace('/result/PGresult')"
-    >View Result</button>
-
+      <!-- Notifications Section -->
+      <div class="notifications mt-5">
+        <h2>Recent Notifications</h2>
+        <marquee
+          behavior="scroll"
+          direction="up"
+          scrollamount="5"
+          class="notification-marquee"
+        >
+          <div class="notification">🔔 New semester results are available!</div>
+          <div class="notification">📅 Upcoming deadlines for thesis
+            submissions.</div>
+          <div class="notification">📝 Registration for new courses opens next
+            week.</div>
+          <div class="notification">📊 Recent update on examination schedules.</div>
+        </marquee>
+      </div>
+    </div>
   </div>
+
+</header>
+
+<!-- About and Features Section -->
+<div class="container mt-5">
+  <div class="row">
+    <!-- About Section -->
+    <div class="col-md-6 mb-4">
+      <img
+        src="https://via.placeholder.com/600x400"
+        class="img-fluid rounded shadow-sm"
+        alt="University Image"
+      />
+    </div>
+    <div class="col-md-6 d-flex align-items-center">
+      <div>
+        <h2>About Our System</h2>
+        <p>
+          Our platform offers a comprehensive solution for postgraduate result
+          management. Whether you're an administrator looking to publish results
+          or a student checking their performance, our system provides a
+          user-friendly and efficient way to handle all your academic result
+          needs.
+        </p>
+        <p>
+          With robust features and an intuitive interface, you can quickly
+          access, manage, and publish results securely. Explore the
+          functionalities and experience seamless result management.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <h2 class="text-center mt-5">Features</h2>
+  <div class="row">
+    <div class="col-md-4 text-center mb-4">
+      <div class="feature-card">
+        <i class="bi bi-bar-chart-line fs-2"></i>
+        <h4>Comprehensive Reporting</h4>
+        <p>Generate detailed reports and analytics for better decision-making.</p>
+      </div>
+    </div>
+    <div class="col-md-4 text-center mb-4">
+      <div class="feature-card">
+        <i class="bi bi-lock fs-2"></i>
+        <h4>Secure Access</h4>
+        <p>Ensure that sensitive result data is securely accessed and managed.</p>
+      </div>
+    </div>
+    <div class="col-md-4 text-center mb-4">
+      <div class="feature-card">
+        <i class="bi bi-calendar-check fs-2"></i>
+        <h4>Timely Updates</h4>
+        <p>Keep track of result updates and deadlines efficiently.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action Buttons -->
+<div class="text-center mt-5">
+  <button
+    class="btn btn-primary btn-lg mx-2"
+    onclick="location.replace('/admin')"
+  >Admin Login</button>
+  <button
+    class="btn btn-secondary btn-lg mx-2"
+    onclick="location.replace('/result/PGresult')"
+  >View Result</button>
 </div>
