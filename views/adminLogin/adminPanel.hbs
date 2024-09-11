@@ -1,0 +1,106 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body { padding-top: 20px; } .card-link { text-decoration: none; color:
+      inherit; } .card-link:hover { text-decoration: none; } .card { cursor:
+      pointer; transition: transform 0.2s ease-in-out, box-shadow 0.2s
+      ease-in-out; height: 100%; } .card:hover { transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); } .card-icon { font-size: 3rem;
+      color: #007bff; } .card-body { display: flex; flex-direction: column;
+      align-items: center; justify-content: center; } .card-text { margin-top:
+      10px; }
+    </style>
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="container mt-4">
+      <div class="row">
+        <!-- Dashboard Card -->
+        <div class="col-md-4 mb-4">
+          <a
+            href="/dashboard"
+            class="card card-link text-decoration-none h-100"
+          >
+            <div class="card-body text-center">
+              <i class="fas fa-tachometer-alt card-icon mb-3"></i>
+              <h5 class="card-title">Dashboard</h5>
+              <p class="card-text">View the dashboard with overall metrics and
+                insights.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Manage Notifications Card -->
+        <div class="col-md-4 mb-4">
+          <a
+            href="/manage-notifications"
+            class="card card-link text-decoration-none h-100"
+          >
+            <div class="card-body text-center">
+              <i class="fas fa-bell card-icon mb-3"></i>
+              <h5 class="card-title">Manage Notifications</h5>
+              <p class="card-text">Handle all notifications and alerts here.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Manage Students Card -->
+        <div class="col-md-4 mb-4">
+          <a
+            href="/admin/manage"
+            class="card card-link text-decoration-none h-100"
+          >
+            <div class="card-body text-center">
+              <i class="fas fa-user-graduate card-icon mb-3"></i>
+              <h5 class="card-title">Manage Students</h5>
+              <p class="card-text">Edit, view, or delete student information.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Add New Student Card -->
+        <div class="col-md-4 mb-4">
+          <a
+            href="/add-student"
+            class="card card-link text-decoration-none h-100"
+          >
+            <div class="card-body text-center">
+              <i class="fas fa-user-plus card-icon mb-3"></i>
+              <h5 class="card-title">Add New Student</h5>
+              <p class="card-text">Add a new student to the database.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Add Student Result Card -->
+        <div class="col-md-4 mb-4">
+          <a
+            href="/add-result"
+            class="card card-link text-decoration-none h-100"
+          >
+            <div class="card-body text-center">
+              <i class="fas fa-chart-line card-icon mb-3"></i>
+              <h5 class="card-title">Add Student Result</h5>
+              <p class="card-text">Record results for students here.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"
+    ></script>
+  </body>
+</html>

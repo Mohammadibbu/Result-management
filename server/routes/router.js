@@ -8,6 +8,12 @@ const adminController = require("../controllers/adminController");
 router.get("/", resultController.HomePage);
 //Admin Page
 router.get("/admin", resultController.admin);
+//admin Panel
+router.get(
+  "/admin/adminPanel",
+  adminController.isLoggedIn,
+  resultController.adminPanel
+);
 
 //view all records
 router.get("/admin/manage", adminController.isLoggedIn, resultController.view);

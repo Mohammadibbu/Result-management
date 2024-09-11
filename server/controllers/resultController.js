@@ -80,7 +80,10 @@ exports.resultPage = (req, res) => {
 exports.admin = (req, res) => {
   res.render("./adminLogin/adminLogin", { style: "index" });
 };
-
+//admin Panel
+exports.adminPanel = (req, res) => {
+  res.render("./adminLogin/adminPanel");
+};
 exports.view = (req, res) => {
   // console.log(`req  :${req.user}`);
   if (req.user) {
