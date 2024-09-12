@@ -10,6 +10,19 @@ const conn = mysql.createPool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
 });
+
+function formatDate(dateString) {
+  //   console.log(dateString);
+  if (dateString == null) {
+    return "NOT FOUND";
+  }
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
 //index page
 exports.HomePage = (req, res) => {
   res.render("index");
@@ -92,8 +105,16 @@ exports.view = (req, res) => {
       connection.query("select * from Students ", (err, rows) => {
         connection.release();
         if (!err) {
+          const stud_data = rows.map((item) => {
+            return {
+              ...item,
+              Dob: formatDate(item.Dob),
+            };
+          });
+          // console.log(stud_data);
+
           res.render("manageStudents", {
-            data: rows,
+            data: stud_data,
             admin: req.user,
             BodyBGColor: "rgb(67, 216, 204);",
           });
@@ -143,18 +164,18 @@ exports.save = (req, res) => {
 //edit user
 // update
 exports.update = (req, res) => {
-  console.log(req.body);
-  const { register_number, student_name, class: department } = req.body;
+  // console.log(req.body);
+  const { register_number, student_name, dob, class: department } = req.body;
 
-  if (!register_number || !student_name || !department) {
+  if (!register_number || !student_name || !department || !dob) {
     return res.status(400).send("Please fill in all required fields.");
   }
 
   const query =
-    "UPDATE Students SET student_name = ?, class = ? WHERE register_number = ?";
+    "UPDATE Students SET student_name = ?, class = ? ,Dob=? WHERE register_number = ?";
   conn.query(
     query,
-    [student_name, department, register_number],
+    [student_name, department, dob, register_number],
     (err, result) => {
       if (err) {
         console.error(err);
@@ -183,15 +204,6 @@ exports.deletestudent = (req, res) => {
     );
   });
 };
-
-// Route to handle form submission and query results
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
-}
 
 exports.getresult = (req, res) => {
   const registerNumber = req.body.regno;

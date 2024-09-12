@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,16 +12,13 @@
     />
     <title>Manage Students</title>
     <style>
-      .modal-content { border-radius: 15px; }
-      .modal-header { border-bottom: none; }
-      .modal-body p.lead { margin-bottom: 20px; }
+      .modal-content { border-radius: 15px; } .modal-header { border-bottom:
+      none; } .modal-body p.lead { margin-bottom: 20px; }
       .btn-outline-primary:hover, .btn-outline-secondary:hover { color: #fff; }
     </style>
-    
   </head>
   <body>
     <div class="container mt-5 bg-white p-4 rounded shadow">
-
       <div class="row">
         <div class="col-md-6">
           <h2 class="alert alert-info">Manage Students</h2>
@@ -34,7 +30,8 @@
             data-toggle="modal"
             data-target="#addStudentModal"
           >
-            <i class="fas fa-user-plus"></i> Add Student
+            <i class="fas fa-user-plus"></i>
+            Add Student
           </button>
           <button
             type="button"
@@ -42,7 +39,8 @@
             data-toggle="modal"
             data-target="#logoutModal"
           >
-            <i class="fas fa-sign-out-alt"></i> Logout
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
           </button>
         </div>
       </div>
@@ -78,9 +76,11 @@
                     data-target="#editStudentModal"
                     data-regno="{{this.register_number}}"
                     data-name="{{this.student_name}}"
+                    data-dob="{{this.Dob}}"
                     data-dept="{{this.class}}"
                   >
-                    <i class="fas fa-edit"></i> Edit
+                    <i class="fas fa-edit"></i>
+                    Edit
                   </button>
                 </td>
                 <td>
@@ -91,7 +91,8 @@
                     data-target="#deleteModal"
                     data-regno="{{this.register_number}}"
                   >
-                    <i class="fas fa-trash"></i> Delete
+                    <i class="fas fa-trash"></i>
+                    Delete
                   </button>
                 </td>
                 <td>
@@ -99,7 +100,8 @@
                     href="/admin/manageresultview/{{this.register_number}}"
                     class="btn btn-sm btn-dark"
                   >
-                    <i class="fas fa-pencil-alt"></i> Edit Result
+                    <i class="fas fa-pencil-alt"></i>
+                    Edit Result
                   </a>
                 </td>
               </tr>
@@ -181,10 +183,12 @@
               class="btn btn-secondary"
               data-dismiss="modal"
             >
-              <i class="fas fa-times"></i> Close
+              <i class="fas fa-times"></i>
+              Close
             </button>
             <button type="button" id="saveAddStudent" class="btn btn-success">
-              <i class="fas fa-save"></i> Save
+              <i class="fas fa-save"></i>
+              Save
             </button>
           </div>
         </div>
@@ -230,7 +234,16 @@
                   required
                 />
               </div>
-
+              <div class="form-group">
+                <label for="editDob">DOB</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="dob"
+                  id="editDob"
+                  required
+                />
+              </div>
               <div class="form-group">
                 <label for="editDept">Department</label>
                 <input
@@ -249,10 +262,12 @@
               class="btn btn-secondary"
               data-dismiss="modal"
             >
-              <i class="fas fa-times"></i> Close
+              <i class="fas fa-times"></i>
+              Close
             </button>
             <button type="button" id="saveEditStudent" class="btn btn-info">
-              <i class="fas fa-save"></i> Save changes
+              <i class="fas fa-save"></i>
+              Save changes
             </button>
           </div>
         </div>
@@ -290,10 +305,12 @@
               class="btn btn-secondary"
               data-dismiss="modal"
             >
-              <i class="fas fa-times"></i> Cancel
+              <i class="fas fa-times"></i>
+              Cancel
             </button>
             <button type="button" id="confirmDelete" class="btn btn-danger">
-              <i class="fas fa-trash"></i> Delete
+              <i class="fas fa-trash"></i>
+              Delete
             </button>
           </div>
         </div>
@@ -331,10 +348,12 @@
               class="btn btn-secondary"
               data-dismiss="modal"
             >
-              <i class="fas fa-times"></i> Cancel
+              <i class="fas fa-times"></i>
+              Cancel
             </button>
             <button type="button" id="confirmLogout" class="btn btn-danger">
-              <i class="fas fa-sign-out-alt"></i> Logout
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
             </button>
           </div>
         </div>
@@ -351,48 +370,27 @@
     ></script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        let deleteRegNo = null;
-        document.querySelectorAll(".btn-delete").forEach((button) => {
-          button.addEventListener("click", function () {
-            deleteRegNo = this.getAttribute("data-regno");
-          });
-        });
-        document
-          .getElementById("confirmDelete")
-          .addEventListener("click", () => {
-            if (deleteRegNo) {
-              window.location.href = "/admin/deletestudent/" + deleteRegNo;
-            }
-          });
-        let editRegNo = null;
-        document.querySelectorAll(".btn-edit").forEach((button) => {
-          button.addEventListener("click", function () {
-            editRegNo = this.getAttribute("data-regno");
-            document.getElementById("editRegNo").value = editRegNo;
-            document.getElementById("editStudentName").value =
-              this.getAttribute("data-name");
-            document.getElementById("editDept").value =
-              this.getAttribute("data-dept");
-          });
-        });
-        document
-          .getElementById("saveEditStudent")
-          .addEventListener("click", () => {
-            document.getElementById("editStudentForm").submit();
-          });
-        document
-          .getElementById("saveAddStudent")
-          .addEventListener("click", () => {
-            document.getElementById("addStudentForm").submit();
-          });
-        document
-          .getElementById("confirmLogout")
-          .addEventListener("click", () => {
-            window.location.href = "/admin";
-          });
-      });
+      document.addEventListener("DOMContentLoaded", () => { let deleteRegNo =
+      null; document.querySelectorAll(".btn-delete").forEach((button) => {
+      button.addEventListener("click", function () { deleteRegNo =
+      this.getAttribute("data-regno"); }); });
+      document.getElementById("confirmDelete").addEventListener("click", () => {
+      if (deleteRegNo) { window.location.href = "/admin/deletestudent/" +
+      deleteRegNo; } }); let editRegNo = null;
+      document.querySelectorAll(".btn-edit").forEach((button) => {
+      button.addEventListener("click", function () { editRegNo =
+      this.getAttribute("data-regno");
+      document.getElementById("editRegNo").value = editRegNo;
+      document.getElementById("editStudentName").value =
+      this.getAttribute("data-name"); document.getElementById("editDob").value =
+      this.getAttribute("data-dob"); document.getElementById("editDept").value =
+      this.getAttribute("data-dept"); }); });
+      document.getElementById("saveEditStudent").addEventListener("click", () =>
+      { document.getElementById("editStudentForm").submit(); });
+      document.getElementById("saveAddStudent").addEventListener("click", () =>
+      { document.getElementById("addStudentForm").submit(); });
+      document.getElementById("confirmLogout").addEventListener("click", () => {
+      window.location.href = "/admin"; }); });
     </script>
-
   </body>
 </html>
