@@ -105,6 +105,7 @@ exports.view = (req, res) => {
       connection.query("select * from Students ", (err, rows) => {
         connection.release();
         if (!err) {
+          //for date format
           const stud_data = rows.map((item) => {
             return {
               ...item,
@@ -166,6 +167,11 @@ exports.save = (req, res) => {
 exports.update = (req, res) => {
   // console.log(req.body);
   const { register_number, student_name, dob, class: department } = req.body;
+  sqldateformat = (dateStr) => {
+    const [day, month, year] = dateStr.split("/");
+    return `${year}-${month}-${day}`;
+  };
+  let sqldateformat = sqldateformat(dob);
 
   if (!register_number || !student_name || !department || !dob) {
     return res.status(400).send("Please fill in all required fields.");
@@ -175,7 +181,7 @@ exports.update = (req, res) => {
     "UPDATE Students SET student_name = ?, class = ? ,Dob=? WHERE register_number = ?";
   conn.query(
     query,
-    [student_name, department, dob, register_number],
+    [student_name, department, sqldateformat, register_number],
     (err, result) => {
       if (err) {
         console.error(err);
