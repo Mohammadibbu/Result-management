@@ -1,0 +1,39 @@
+.alertContainer {
+  position: fixed;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  min-width: 100px;
+  max-width: 400px;
+  z-index: 999999;
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+}
+.alert-icon {
+  font-size: 1.3em;
+  margin-right: 10px;
+  color: #ffffff;
+}
+.alert-error {
+  background-color: #d9534f;
+  color: #ffffff;
+  border-color: #d9534f;
+}
+
+.alert-successful {
+  background-color: #5fde5b;
+  color: #ffffff;
+  border-color: #64da46;
+}
+
+.alert-information {
+  background-color: #5bc0de;
+  color: #ffffff;
+  border-color: #46b8da;
+}
+
+.alert-warn {
+  background-color: #f0ad4e;
+  color: #ffffff;
+  border-color: #eea236;
+}

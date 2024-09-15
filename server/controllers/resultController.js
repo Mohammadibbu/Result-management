@@ -171,8 +171,7 @@ exports.update = (req, res) => {
     const [day, month, year] = dateStr.split("/");
     return `${year}-${month}-${day}`;
   };
-  let sqldateformat = sqldateformat(dob);
-
+  let dateformat = sqldateformat(dob);
   if (!register_number || !student_name || !department || !dob) {
     return res.status(400).send("Please fill in all required fields.");
   }
@@ -181,7 +180,7 @@ exports.update = (req, res) => {
     "UPDATE Students SET student_name = ?, class = ? ,Dob=? WHERE register_number = ?";
   conn.query(
     query,
-    [student_name, department, sqldateformat, register_number],
+    [student_name, department, dateformat, register_number],
     (err, result) => {
       if (err) {
         console.error(err);
