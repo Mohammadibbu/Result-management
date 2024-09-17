@@ -35,6 +35,8 @@ router.get(
 //result page
 router.get("/result/PGresult", resultController.result);
 router.get("/result/PGresultPage", resultController.resultPage);
+//delet student result
+router.get("/admin/deletestudentResult/:id",adminController.isLoggedIn, studresultmanageController.deletestudentResult);
 
 //auth admin
 router.post("/auth/adminLogin", adminController.adminLoginAuth);

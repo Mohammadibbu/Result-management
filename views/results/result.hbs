@@ -1,62 +1,105 @@
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="text-center">
-        <img
-          src="https://egovernance.unom.ac.in/results/unom.png"
-          width="70"
-          height="65"
-          class="mt-2"
-        />
-        <h1
-          class="text mt-3 mb-0"
-          style="color:brown;font-weight:bolder"
-        >University of Madras</h1>
-      </div>
-      <div class="text-center text-white mb-4">
-        <p class="mb-0" style="color: blue;font-weight:bolder;">University
-          Students Examination Results.<br /><span id="some_mess">Published on
-            10-09-2024.. message goes here....</span></p>
-      </div>
-      <div class="bg-white p-4 rounded shadow">
-        <form name="master" action="/get-results" method="post">
-          <div class="form-group row">
-            <label for="regno" class="col-sm-4 col-form-label"><b>Register
-                Number</b></label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                name="regno"
-                class="form-control"
-                id="regno"
-                placeholder="Enter Register Number"
-              />
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>University Results</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="text-center mb-4">
+            <img
+              src="/images/unom.png"
+              width="70"
+              height="65"
+              class="mt-2 animate__animated animate__fadeIn"
+            />
+            <h1 class="mt-3 mb-0 text-brown font-weight-bold">University of
+              Madras</h1>
+          </div>
+          <div class="text-center mb-4">
+            <div
+              class="alert alert-info animate__animated animate__pulse"
+              role="alert"
+            >
+              <p class="mb-0 text-primary font-weight-bold">
+                University Students Examination Results.<br />
+                <span id="some_mess">Published on 10-09-2024.. message goes
+                  here....</span>
+              </p>
             </div>
           </div>
-          <div class="form-group row">
-            <label for="pwd" class="col-sm-4 col-form-label"><b>Date of Birth</b></label>
-            <div class="col-sm-8">
-              <input
-                type="text"
-                name="pwd"
-                class="form-control"
-                id="pwd"
-                placeholder="DD/MM/YYYY"
-              />
+          <div class="card shadow-lg">
+            <div
+              class="card-header text-center bg-dark text-white font-weight-bold"
+            >
+              Results Check
+            </div>
+            <div class="card-body">
+              <form name="master" action="/result/get-results" method="post">
+                <div class="form-group row">
+                  <label for="regno" class="col-sm-4 col-form-label"><b>Register
+                      Number</b></label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      name="regno"
+                      class="form-control"
+                      id="regno"
+                      placeholder="Enter Register Number"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="pwd" class="col-sm-4 col-form-label"><b>Date of
+                      Birth</b></label>
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      name="pwd"
+                      class="form-control"
+                      id="pwd"
+                      placeholder="DD/MM/YYYY"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary mr-2"><b>Get
+                        Result</b></button>
+                    <button type="reset" class="btn btn-secondary"><b
+                      >Clear</b></button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="form-group row">
-            <div class="col-sm-12 text-center">
-              <button type="submit" class="btn btn-primary mr-2"><b>Get Result</b></button>
-              <button type="reset" class="btn btn-secondary"><b
-                >Clear</b></button>
-            </div>
+          <div class="text-center mt-3">
+            <a href="/" class="btn btn-dark"><b>Back</b></a>
           </div>
-        </form>
+        </div>
       </div>
-      <a href="/" class="btn btn-dark mr-2"><b>Back</b>
-
-      </a>
     </div>
-  </div>
-</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    ></script>
+    {{#if err}}
+      <script>
+        showAlert('{{err}}','error');
+      </script>
+    {{/if}}
+  </body>
+</html>

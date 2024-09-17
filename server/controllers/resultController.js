@@ -213,7 +213,8 @@ exports.deletestudent = (req, res) => {
 exports.getresult = (req, res) => {
   const registerNumber = req.body.regno;
   const dob = req.body.dob;
-  console.log(registerNumber);
+
+  // console.log(registerNumber);
   // SQL query to get the results for the given register number
   const sql = `SELECT * FROM Results WHERE register_number = ?`;
   // SQL query to get the student's name
@@ -227,7 +228,10 @@ exports.getresult = (req, res) => {
 
     // Check if results are found
     if (results.length === 0) {
-      return res.status(404).send("No results found for the given details");
+      return res.render("./results/result", {
+        err: "No results found for the given details",
+      });
+      res.status(404).send("No results found for the given details");
     }
 
     // Fetch student name after results are found
@@ -244,7 +248,7 @@ exports.getresult = (req, res) => {
         SEMESTER: results[0].SEMESTER,
         data: results,
       });
-      console.log("Results:", results);
+      // console.log("Results:", results);
     });
   });
 };
