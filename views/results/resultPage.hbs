@@ -1,9 +1,34 @@
 <style>
-  @media print { body { font-size: 12px; background-color: rgb(255, 255, 255); }
-  .btn { display: none; } } .print-icon { display: inline-block; font-size:
-  20px; margin-right: 5px; } .green { color: green; } .red { color: red; }
+  @media print {
+    
+   header{
+    display: none;
+   }
+   footer{
+    display: none;
+   }
+    .btn {
+      display: none;
+    }
+   .watermark {
+      position: fixed; 
+      top: 50%; 
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px; 
+      color: rgba(0, 0, 0, 0.1); 
+      pointer-events: none; 
+      white-space: nowrap; 
+      z-index: -1; 
+      display: block;
+    }
+  }
+  .print-icon { display: inline-block; 
+  font-size:20px; margin-right: 5px; } 
+  .green { color: green; } 
+  .red { color: red; }
 </style>
-
+<div class="watermark" style="display: none;">University of Madras</div>
 <div class="container mt-4 bg-white p-4 rounded shadow">
   <div class="text-center">
     <img
