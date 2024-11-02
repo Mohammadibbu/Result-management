@@ -36,7 +36,11 @@ router.get(
 router.get("/result/PGresult", resultController.result);
 router.get("/result/PGresultPage", resultController.resultPage);
 //delet student result
-router.get("/admin/deletestudentResult/:id",adminController.isLoggedIn, studresultmanageController.deletestudentResult);
+router.get(
+  "/admin/deletestudentResult/:id",
+  adminController.isLoggedIn,
+  studresultmanageController.deletestudentResult
+);
 
 //auth admin
 router.post("/auth/adminLogin", adminController.adminLoginAuth);
@@ -67,4 +71,13 @@ router.post(
   studresultmanageController.updateStudentResult
 );
 
+//notification
+
+router.get(
+  "/admin/notifications",
+  adminController.isLoggedIn,
+  adminController.notificationview
+);
+router.post("/add-notification", adminController.addnotification);
+router.post("/delete-notification", adminController.deletenotification);
 module.exports = router;
