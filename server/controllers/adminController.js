@@ -94,3 +94,66 @@ exports.isLoggedIn = async (req, res, next) => {
     return next();
   }
 };
+exports.notificationview = (req, res) => {
+  // Function to format the timestamp
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+
+    // Get day, month, year, hours, and minutes
+    const day = String(date.getDate()).padStart(2, "0"); // Ensure two digits
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = date.getFullYear();
+
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0"); // Ensure two digits
+
+    // Convert to 12-hour format
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? String(hours).padStart(2, "0") : "12"; // the hour '0' should be '12'
+
+    return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
+  }
+
+  conn.query("SELECT * FROM notifications", (err, results) => {
+    if (err) throw err;
+
+    // Format each notification's timestamp
+    const formattedResults = results.map((notification) => ({
+      ...notification,
+      created_at: formatTimestamp(notification.timestamp), // Assuming 'timestamp' holds the date
+    }));
+
+    res.render("./adminLogin/notification", {
+      notifications: formattedResults,
+    });
+  });
+};
+
+exports.addnotification = (req, res) => {
+  const { message } = req.body;
+  const currentTime = new Date(); // Get the current time
+
+  if (message) {
+    conn.query(
+      "INSERT INTO notifications ( timestamp,Notification) VALUES (?, ?)",
+      [currentTime, message], // Insert message and current time
+      (err) => {
+        if (err) throw err;
+        res.redirect("/admin/notifications");
+      }
+    );
+  }
+};
+
+exports.deletenotification = (req, res) => {
+  const { id } = req.body;
+  conn.query(
+    "DELETE FROM notifications WHERE Notification_ID = ?",
+    [id],
+    (err) => {
+      if (err) throw err;
+      res.redirect("/admin/notifications");
+    }
+  );
+};
