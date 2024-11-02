@@ -13,6 +13,9 @@
     <div class="container mt-5">
       <h1 class="mb-4">Notification Management</h1>
 
+      <!-- Dashboard Button -->
+      <a href="/admin/adminPanel" class="btn btn-secondary mb-4">Dashboard</a>
+
       <form action="/add-notification" method="POST" class="mb-4">
         <div class="input-group">
           <input
@@ -33,7 +36,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>created At</th>
+              <th>Created At</th>
               <th>Message</th>
               <th>Actions</th>
             </tr>
@@ -43,7 +46,6 @@
               <tr>
                 <td>{{this.Notification_ID}}</td>
                 <td>{{this.created_at}}</td>
-                <!-- Ensure this is formatted as needed -->
                 <td>{{this.Notification}}</td>
                 <td>
                   <form
@@ -61,7 +63,6 @@
                       style="font-size: 10px;"
                       type="submit"
                     >Delete</button>
-
                   </form>
                 </td>
               </tr>
