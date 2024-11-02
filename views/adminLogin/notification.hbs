@@ -1,0 +1,75 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notification Management</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+
+    <div class="container mt-5">
+      <h1 class="mb-4">Notification Management</h1>
+
+      <form action="/add-notification" method="POST" class="mb-4">
+        <div class="input-group">
+          <input
+            type="text"
+            name="message"
+            class="form-control"
+            placeholder="Enter notification message"
+            required
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Add Notification</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>created At</th>
+              <th>Message</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each notifications}}
+              <tr>
+                <td>{{this.Notification_ID}}</td>
+                <td>{{this.created_at}}</td>
+                <!-- Ensure this is formatted as needed -->
+                <td>{{this.Notification}}</td>
+                <td>
+                  <form
+                    action="/delete-notification"
+                    method="POST"
+                    style="display:inline;"
+                  >
+                    <input
+                      type="hidden"
+                      name="id"
+                      value="{{this.Notification_ID}}"
+                    />
+                    <button
+                      class="btn btn-danger"
+                      style="font-size: 10px;"
+                      type="submit"
+                    >Delete</button>
+
+                  </form>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </body>
+</html>
