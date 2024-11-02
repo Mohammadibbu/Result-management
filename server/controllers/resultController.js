@@ -24,9 +24,31 @@ function formatDate(dateString) {
 }
 
 //index page
+
 exports.HomePage = (req, res) => {
-  res.render("index");
+  conn.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error getting connection:", err);
+      return res.status(500).send("Server error");
+    }
+
+    connection.query("SELECT * FROM notifications", (err, data) => {
+      connection.release();
+
+      if (err) {
+        console.error("Error fetching notifications:", err);
+        return res.status(500).send("Server error");
+      }
+      console.log(data);
+
+      // Render the index view with the fetched notifications
+      res.render("index", {
+        notifications: data,
+      });
+    });
+  });
 };
+
 //result page
 
 exports.result = (req, res) => {
