@@ -5,12 +5,11 @@
 
     <title>Manage Students</title>
     <style>
-      .modal-content { border-radius: 15px; } 
-      .modal-header { border-bottom: none; } 
-      .modal-body p.lead { margin-bottom: 20px; }
+      .modal-content { border-radius: 15px; } .modal-header { border-bottom:
+      none; } .modal-body p.lead { margin-bottom: 20px; }
       .btn-outline-primary:hover, .btn-outline-secondary:hover { color: #fff; }
-      .search-section { margin-bottom: 20px; }
-      .form-control { margin-bottom: 10px; }
+      .search-section { margin-bottom: 20px; } .form-control { margin-bottom:
+      10px; }
     </style>
   </head>
   <body>
@@ -20,6 +19,10 @@
           <h2 class="alert alert-info">Manage Students</h2>
         </div>
         <div class="col-md-6 text-right">
+          <a href="/admin/adminPanel" class="btn btn-secondary mr-2">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+          </a>
           <button
             type="button"
             class="btn btn-success mr-2 addStud"
@@ -56,7 +59,7 @@
             <select id="deptFilter" class="form-control">
               <option value="">Select Department</option>
               {{#each departments}}
-              <option value="{{this}}">{{this}}</option>
+                <option value="{{this}}">{{this}}</option>
               {{/each}}
             </select>
           </div>
@@ -380,69 +383,41 @@
 
     <!-- Scripts -->
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        let deleteRegNo = null;
-        let editRegNo = null;
-
-        document.querySelectorAll(".btn-delete").forEach((button) => {
-          button.addEventListener("click", function () {
-            deleteRegNo = this.getAttribute("data-regno");
-          });
-        });
-
-        document.getElementById("confirmDelete").addEventListener("click", () => {
-          if (deleteRegNo) {
-            window.location.href = "/admin/deletestudent/" + deleteRegNo;
-          }
-        });
-
-        document.querySelectorAll(".btn-edit").forEach((button) => {
-          button.addEventListener("click", function () {
-            editRegNo = this.getAttribute("data-regno");
-            document.getElementById("editRegNo").value = editRegNo;
-            document.getElementById("editStudentName").value = this.getAttribute("data-name");
-            document.getElementById("editDob").value = this.getAttribute("data-dob");
-            document.getElementById("editDept").value = this.getAttribute("data-dept");
-          });
-        });
-
-        document.getElementById("saveEditStudent").addEventListener("click", () => {
-          document.getElementById("editStudentForm").submit();
-        });
-
-        document.getElementById("saveAddStudent").addEventListener("click", () => {
-          document.getElementById("addStudentForm").submit();
-        });
-
-        document.getElementById("confirmLogout").addEventListener("click", () => {
-          window.location.href = "/admin";
-        });
-
-        // Filtering Functionality
-        document.getElementById("searchInput").addEventListener("input", filterTable);
-        document.getElementById("deptFilter").addEventListener("change", filterTable);
-
-        function filterTable() {
-          const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-          const selectedDept = document.getElementById("deptFilter").value.toLowerCase();
-          const rows = document.querySelectorAll("#tableBody tr");
-
-          rows.forEach(row => {
-            const regNo = row.children[1].textContent.toLowerCase();
-            const name = row.children[2].textContent.toLowerCase();
-            const dept = row.children[4].textContent.toLowerCase();
-
-            const matchesSearch = regNo.includes(searchTerm) || name.includes(searchTerm);
-            const matchesDept = !selectedDept || dept.includes(selectedDept);
-
-            if (matchesSearch && matchesDept) {
-              row.style.display = "";
-            } else {
-              row.style.display = "none";
-            }
-          });
-        }
-      });
+      document.addEventListener("DOMContentLoaded", () => { let deleteRegNo =
+      null; let editRegNo = null;
+      document.querySelectorAll(".btn-delete").forEach((button) => {
+      button.addEventListener("click", function () { deleteRegNo =
+      this.getAttribute("data-regno"); }); });
+      document.getElementById("confirmDelete").addEventListener("click", () => {
+      if (deleteRegNo) { window.location.href = "/admin/deletestudent/" +
+      deleteRegNo; } }); document.querySelectorAll(".btn-edit").forEach((button)
+      => { button.addEventListener("click", function () { editRegNo =
+      this.getAttribute("data-regno");
+      document.getElementById("editRegNo").value = editRegNo;
+      document.getElementById("editStudentName").value =
+      this.getAttribute("data-name"); document.getElementById("editDob").value =
+      this.getAttribute("data-dob"); document.getElementById("editDept").value =
+      this.getAttribute("data-dept"); }); });
+      document.getElementById("saveEditStudent").addEventListener("click", () =>
+      { document.getElementById("editStudentForm").submit(); });
+      document.getElementById("saveAddStudent").addEventListener("click", () =>
+      { document.getElementById("addStudentForm").submit(); });
+      document.getElementById("confirmLogout").addEventListener("click", () => {
+      window.location.href = "/admin"; }); // Filtering Functionality
+      document.getElementById("searchInput").addEventListener("input",
+      filterTable);
+      document.getElementById("deptFilter").addEventListener("change",
+      filterTable); function filterTable() { const searchTerm =
+      document.getElementById("searchInput").value.toLowerCase(); const
+      selectedDept = document.getElementById("deptFilter").value.toLowerCase();
+      const rows = document.querySelectorAll("#tableBody tr"); rows.forEach(row
+      => { const regNo = row.children[1].textContent.toLowerCase(); const name =
+      row.children[2].textContent.toLowerCase(); const dept =
+      row.children[4].textContent.toLowerCase(); const matchesSearch =
+      regNo.includes(searchTerm) || name.includes(searchTerm); const matchesDept
+      = !selectedDept || dept.includes(selectedDept); if (matchesSearch &&
+      matchesDept) { row.style.display = ""; } else { row.style.display =
+      "none"; } }); } });
     </script>
 
     {{#if error_msg}}
