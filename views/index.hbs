@@ -6,22 +6,60 @@
       <p>Your gateway to managing and publishing postgraduate results.</p>
 
       <!-- Notifications Section -->
-      <div class="notifications mt-5">
-        <h2>Recent Notifications</h2>
-        <marquee
-          behavior="scroll"
-          direction="up"
-          scrollamount="5"
-          class="notification-marquee"
-        >
-          <div class="notification">🔔 New semester results are available!</div>
-          <div class="notification">📅 Upcoming deadlines for thesis
-            submissions.</div>
-          <div class="notification">📝 Registration for new courses opens next
-            week.</div>
-          <div class="notification">📊 Recent update on examination schedules.</div>
-        </marquee>
-      </div>
+      {{#if notifications}}
+        <div class="notifications mt-5">
+
+          <h2>Recent Notifications</h2>
+          <marquee
+            behavior="scroll"
+            direction="up"
+            scrollamount="5"
+            class="notification-marquee"
+            onmouseover="this.stop()"
+            onmouseleave="this.start()"
+          >
+
+            {{#each notifications}}
+              <div class="notification"><a href="/result/PGresult">
+                  <img
+                    src="https://media.tenor.com/B-4O2SvDhwMAAAAj/notification-notification-icon.gif"
+                    height="20"
+                    weight="20"
+                  />
+                  {{this.Notification}}<img
+                    src="https://media.tenor.com/B-4O2SvDhwMAAAAj/notification-notification-icon.gif"
+                    height="20"
+                    weight="20"
+                  /></a></div>
+            {{/each}}
+            <div class="notification"><a href="#">
+                <img
+                  src="https://media.tenor.com/B-4O2SvDhwMAAAAj/notification-notification-icon.gif"
+                  height="20"
+                  weight="20"
+                />
+                Registration for new courses opens next<img
+                  src="https://media.tenor.com/B-4O2SvDhwMAAAAj/notification-notification-icon.gif"
+                  height="20"
+                  weight="20"
+                /></a></div>
+            <div class="notification"><a href="#">
+                <img
+                  src="https://media.tenor.com/B-4O2SvDhwMAAAAj/notification-notification-icon.gif"
+                  height="20"
+                  weight="20"
+                />
+                Recent update on examination schedules.<img
+                  src="https://media.tenor.com/B-4O2SvDhwMAAAAj/notification-notification-icon.gif"
+                  height="20"
+                  weight="20"
+                /></a></div>
+          </marquee>
+        </div>
+      {{else}}
+
+      {{/if}}
+
     </div>
   </div>
 
