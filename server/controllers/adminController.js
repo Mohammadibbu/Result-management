@@ -49,7 +49,7 @@ exports.adminLoginAuth = (req, res) => {
               httpOnly: true,
             };
             res.cookie("PHY123", token, cookieOptions);
-            res.status(200).redirect("/admin/manage");
+            res.status(200).redirect("/admin/adminPanel");
           }
         }
       }
