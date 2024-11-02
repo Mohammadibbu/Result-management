@@ -35,7 +35,7 @@ exports.manageresultview = (req, res) => {
         console.error("Error executing query:", err);
         return res.status(500).send("Error fetching results");
       }
-      const DATA = results.map(packet => ({
+      const DATA = results.map((packet) => ({
         resultId: packet.result_id,
         semester: packet.SEMESTER,
         registerNumber: packet.register_number,
@@ -44,11 +44,9 @@ exports.manageresultview = (req, res) => {
         ST2: packet.ST2,
         endSemester: packet.EndSemester,
         total: packet.Total,
-        result: packet.Result
+        result: packet.Result,
       }));
       // console.log(DATA);
-      
-    
 
       // Fetch student name after results are found
       conn.query(SQL_for_GetName, [registerNumber], (err, nameResult) => {
@@ -120,7 +118,7 @@ exports.deletestudentResult = (req, res) => {
     if (err) throw err;
     const id = req.params.id;
     console.log(id);
-    
+
     connection.query(
       "delete from Results where register_number=?",
       [id],
